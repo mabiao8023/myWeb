@@ -3,6 +3,7 @@
 const Router = require('koa-router')
 const User = require('../app/controllers/user')
 const App = require('../app/controllers/app')
+const Admin = require('../app/controllers/admin')
 
 module.exports = function(){
 	var router = new Router({
@@ -23,6 +24,16 @@ module.exports = function(){
   router.post('/user/login',User.userLogin)
   // 上传图片接口
   router.post('/uploadFile',App.uploadImage)
+
+
+  // 后台轮播图接口
+  router.get('/admin/banner/list',Admin.getAdminBannerList)
+  // 添加轮播图接口
+  router.post('/admin/banner/add',Admin.addAdminBannerList)
+  // 后台冻结轮播图接口与
+  router.post('/admin/banner/remove',Admin.removeAdminBannerList)
+   // 后台冻结轮播图接口与
+  router.post('/admin/banner/edit',Admin.editAdminBannerList)
 
   return router
 }
