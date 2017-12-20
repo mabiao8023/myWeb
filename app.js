@@ -63,9 +63,9 @@ app.use(session(app))
 app.use(bodyParser({limit:'10mb'}))
 
 // 静态资源静态资源路径后端上传
-app.use(koaStatic(path.join( __dirname,  './static')));
+app.use(koaStatic(path.join( __dirname,  './static'),{maxage:7200000,gzip:true}));
 // 前台静态文件
-app.use(koaStatic(path.join( __dirname,  './views')));
+app.use(koaStatic(path.join( __dirname,  './views'),{maxage:7200000,gzip:true}));
 
 /**
  * 使用路由转发请求
