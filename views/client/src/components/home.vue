@@ -22,7 +22,13 @@ export default {
       msg: 'Welcome to Your Vue.js App',
       value: true
     }
-  }
+  },
+  watch:{
+    // 中英文切换
+    value(val,newVal){
+      this.$i18n.locale = this.$i18n.locale == 'zh' ? 'en' : 'zh';
+    },
+  },
 }
 </script>
 
