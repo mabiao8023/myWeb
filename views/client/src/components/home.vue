@@ -3,16 +3,23 @@
   <Header></Header>
     
   <!-- 轮播插件 -->
-    <el-carousel height='700px' :autoplay='true' :interval="5000" arrow="always">
-    <el-carousel-item :key="item">
+    <el-carousel class="el-carousel" height='700px' :autoplay='true' :interval="5000">
+    <el-carousel-item class="el-carousel-item" :key="item">
         <img class='el-carousel-item-img' src="../assets/banner1.jpg">
+        <div class="el-carousel-item-box">
+            <div class="content">
+                <h1>REX</h1>
+                <p>设计永恒的美，受到珍贵的自然材料的启发，协调了地板和墙壁的装饰。历史悠久的传统结合最新的陶瓷设计趋势为您打造理想的住宅、酒店、餐馆、商店和健康中心！</p>
+                <button>查看详情</button>
+            </div>
+        </div>
     </el-carousel-item>
-    <el-carousel-item :key="item">
+    <!-- <el-carousel-item :key="item">
         <img class='el-carousel-item-img' src="../assets/banner2.jpg">
     </el-carousel-item>
     <el-carousel-item :key="item">
         <img class='el-carousel-item-img' src="../assets/banner3.jpg">
-    </el-carousel-item>
+    </el-carousel-item> -->
   </el-carousel>
   <!-- 家具产品 -->
     <section class="part">
@@ -67,16 +74,19 @@
             </li>
         </ul>
     </section>
+    <Footer></Footer>
   </div>
 </template>
 
 <script>
 import Header from './common/header';
+import Footer from './common/footer';
 export default {
 
   name: 'HelloWorld',
   components:{
-    Header
+    Header,
+    Footer
   },
   data () {
     return {
@@ -128,6 +138,8 @@ a {
     text-align: center;
     padding-top: 20px;
     padding-bottom: 20px;
+    background:url('../assets/title-bg2.png') no-repeat center bottom;
+    background-size:200px 12px;
 }
 .part .product-list{
   width:100%;
@@ -141,7 +153,7 @@ a {
   height:364px;
   overflow: hidden;
   margin-bottom:20px;
-  /*border:1px solid #eee;*/
+  border:1px solid #eee;
 }
 .part .product-list li p{
   font-size:20px;
@@ -169,5 +181,33 @@ a {
 }
 .product-list li.active .mask-box{
   opacity: 1;
+}
+
+.el-carousel-item{
+  /*position:relative;*/
+}
+.el-carousel-item-box{
+  position:absolute;
+  top:0;
+  left:0;
+  bottom:0;
+  right:0;
+  background: rgba(0,0,0,.4);
+  z-index:100;
+}
+.el-carousel{
+  margin-top:-88px;
+}
+.el-carousel .content{
+  position:absolute;
+  top:50%;
+  left:50%;
+  width: 674.5px;
+  height: 371px;
+  color:#fff;
+  margin-top: -185.5px;
+  margin-left: -337.25px;
+  border:1px solid #fff;
+  padding:40px;
 }
 </style>

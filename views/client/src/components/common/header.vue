@@ -61,12 +61,11 @@ a {
   color: #42b983;
 }
 .header{
-  position:fixed;
-  top:0;
+  position:relative;
+/*  top:0;
   left:0;
-  right:0;
+  right:0;*/
   height:88px;
-  background:rgba(0,0,0,.2);
   z-index:1000;
 }
 .container{
