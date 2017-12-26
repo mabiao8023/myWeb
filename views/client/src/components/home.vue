@@ -1,26 +1,99 @@
 <template>
   <div class="hello">
-    <el-switch
-    v-model="value"
-    active-color="#13ce66"
-    inactive-color="#ff4949">
-  </el-switch>
+  <Header></Header>
+    
   <!-- 轮播插件 -->
-    <el-carousel :interval="5000" arrow="always">
-    <el-carousel-item v-for="item in 4" :key="item">
-      <h3>{{ item }}</h3>
+    <el-carousel class="el-carousel" height='700px' :autoplay='true' :interval="5000">
+    <el-carousel-item class="el-carousel-item" :key="item">
+        <img class='el-carousel-item-img' src="../assets/banner1.jpg">
+        <div class="el-carousel-item-box">
+            <div class="content">
+                <h1>REX</h1>
+                <p>设计永恒的美，受到珍贵的自然材料的启发，协调了地板和墙壁的装饰。历史悠久的传统结合最新的陶瓷设计趋势为您打造理想的住宅、酒店、餐馆、商店和健康中心！</p>
+                <button>查看详情</button>
+            </div>
+        </div>
     </el-carousel-item>
+    <!-- <el-carousel-item :key="item">
+        <img class='el-carousel-item-img' src="../assets/banner2.jpg">
+    </el-carousel-item>
+    <el-carousel-item :key="item">
+        <img class='el-carousel-item-img' src="../assets/banner3.jpg">
+    </el-carousel-item> -->
   </el-carousel>
+  <!-- 家具产品 -->
+    <section class="part">
+        <h1>家具</h1>
+        <ul class="product-list">
+            <li @mouseenter="mouserEnter" @mouseleave="mouserLeave" :class="{active:jiajuSelectedIndex == 1}" class="product-list-item">
+                <img src="../assets/jiaju1.jpg">
+                <p>家具1</p>
+                <div class="mask-box"> 
+                    <router-link to='/'>
+                      查看产品详情
+                    </router-link>
+                </div>
+            </li>
+            <li class="product-list-item">
+                <img src="../assets/jiaju2.jpg">
+                <p>家具2</p>
+            </li>
+            <li class="product-list-item">
+                <img src="../assets/jiaju3.jpg">
+                <p>家具3</p>
+            </li>
+            <li class="product-list-item">
+                <img src="../assets/jiaju4.jpg">
+                <p>家具4</p>
+            </li>
+        </ul>
+    </section>
+     <section class="part">
+        <h1>石材</h1>
+        <ul class="product-list">
+            <li @mouseenter="mouserEnter" @mouseleave="mouserLeave" :class="{active:jiajuSelectedIndex == 1}" class="product-list-item">
+                <img src="../assets/jiaju1.jpg">
+                <p>家具1</p>
+                <div class="mask-box"> 
+                    <router-link to='/'>
+                      查看产品详情
+                    </router-link>
+                </div>
+            </li>
+            <li class="product-list-item">
+                <img src="../assets/jiaju2.jpg">
+                <p>家具2</p>
+            </li>
+            <li class="product-list-item">
+                <img src="../assets/jiaju3.jpg">
+                <p>家具3</p>
+            </li>
+            <li class="product-list-item">
+                <img src="../assets/jiaju4.jpg">
+                <p>家具4</p>
+            </li>
+        </ul>
+    </section>
+    <Footer></Footer>
   </div>
 </template>
 
 <script>
+import Header from './common/header';
+import Footer from './common/footer';
 export default {
+
   name: 'HelloWorld',
+  components:{
+    Header,
+    Footer
+  },
   data () {
     return {
       msg: 'Welcome to Your Vue.js App',
-      value: true
+      value: true,
+      // 当前家具的选中的
+      jiajuSelectedIndex:0,
     }
   },
   watch:{
@@ -29,6 +102,14 @@ export default {
       this.$i18n.locale = this.$i18n.locale == 'zh' ? 'en' : 'zh';
     },
   },
+  methods:{
+    mouserEnter(){
+      this.jiajuSelectedIndex = 1;
+    },
+    mouserLeave(){
+      this.jiajuSelectedIndex = 0;
+    }
+  }
 }
 </script>
 
@@ -41,26 +122,92 @@ ul {
   list-style-type: none;
   padding: 0;
 }
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
 a {
-  color: #42b983;
+  color: #fff;
 }
-.el-carousel__item h3 {
-    color: #475669;
-    font-size: 18px;
-    opacity: 0.75;
-    line-height: 300px;
-    margin: 0;
-  }
-  
-  .el-carousel__item:nth-child(2n) {
-    background-color: #99a9bf;
-  }
-  
-  .el-carousel__item:nth-child(2n+1) {
-    background-color: #d3dce6;
-  }
+.el-carousel-item-img{
+  height:100%;
+}
+.part{
+  width:1240px;
+  margin:0 auto;
+}
+.part h1{
+    color: #333;
+    font-size: 40px;
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background:url('../assets/title-bg2.png') no-repeat center bottom;
+    background-size:200px 12px;
+}
+.part .product-list{
+  width:100%;
+  font-size:0;
+}
+.part .product-list li{
+  display:inline-block;
+  width:25%;
+  padding:10px;
+  position:relative;
+  height:364px;
+  overflow: hidden;
+  margin-bottom:20px;
+  border:1px solid #eee;
+}
+.part .product-list li p{
+  font-size:20px;
+  padding:10px;
+}
+.part .product-list li:hover{
+  /*box-shadow: 0 2px 10px rgba(0,0,0,.5);*/
+  cursor: pointer;
+}
+.product-list li img{
+  height:300px;
+}
+.product-list li .mask-box{
+  position:absolute;
+  top:0;
+  left:0;
+  bottom:0;
+  right:0;
+  background:rgba(0,0,0,.5);
+  z-index: 100;
+  font-size:20px;
+  padding-top:160px;
+  opacity: 0;
+  transition:all .5s linear;
+}
+.product-list li.active .mask-box{
+  opacity: 1;
+}
+
+.el-carousel-item{
+  /*position:relative;*/
+}
+.el-carousel-item-box{
+  position:absolute;
+  top:0;
+  left:0;
+  bottom:0;
+  right:0;
+  background: rgba(0,0,0,.4);
+  z-index:100;
+}
+.el-carousel{
+  margin-top:-88px;
+}
+.el-carousel .content{
+  position:absolute;
+  top:50%;
+  left:50%;
+  width: 674.5px;
+  height: 371px;
+  color:#fff;
+  margin-top: -185.5px;
+  margin-left: -337.25px;
+  border:1px solid #fff;
+  padding:40px;
+}
 </style>

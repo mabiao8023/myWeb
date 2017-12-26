@@ -14,7 +14,7 @@
 					<span class="el-dropdown-link userinfo-inner"><img src="https://raw.githubusercontent.com/taylorchen709/markdown-images/master/vueadmin/user.png" /> {{sysUserName}}</span>
 					<el-dropdown-menu slot="dropdown">
 						<!-- <el-dropdown-item>我的消息</el-dropdown-item> -->
-						<!--<el-dropdown-item>设置</el-dropdown-item>-->
+						<el-dropdown-item @click.native="dialogTableVisible = true">修改密码</el-dropdown-item>
 						<el-dropdown-item divided @click.native="logout">退出登录</el-dropdown-item>
 					</el-dropdown-menu>
 				</el-dropdown>
@@ -69,8 +69,15 @@
 				</div>
 			</section>
 		</el-col>
+		<el-dialog title="修改密码" :visible.sync="dialogTableVisible">
+	   		<el-input placeholder="请输入要修改的密码(只能是字母和数字的组合)" v-model="pwd" auto-complete="off"></el-input>
+	   		<div slot="footer" class="dialog-footer">
+    <el-button @click="dialogTableVisible = false">取 消</el-button>
+    <el-button type="primary" @click="modifyPwd">确 定</el-button>
+  </div>
+		</el-dialog>
 	</el-row>
-</template>
+	</template>
 
 <script>
 	export default {
@@ -89,7 +96,9 @@
 					type: [],
 					resource: '',
 					desc: ''
-				}
+				},
+				dialogTableVisible:false,
+				pwd:''
 			}
 		},
 		methods: {
@@ -122,6 +131,21 @@
 			},
 			showMenu(i,status){
 				this.$refs.menuCollapsed.getElementsByClassName('submenu-hook-'+i)[0].style.display=status?'block':'none';
+			},
+			modifyPwd(){
+				let data = {
+					name:'admin',
+					pwd:this.pwd
+				}
+				if( /^[A-Za-z0-9]+$/.test(this.pwd) ){
+
+						
+				}else{
+					// this.$message({
+			  //           type: ' error',
+			  //           message: '请输入只含字母和数字的密码'
+			  //         });
+				}
 			}
 		},
 		mounted() {

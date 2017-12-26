@@ -6,7 +6,7 @@ import Vue from 'vue';
 
 // let base = 'http://120.78.193.207';
 
-let base = 'http://www.ym8800.com';
+let base = 'http://127.0.0.1/api';
 
 let myAjax = {
     get( api,data ){
@@ -46,13 +46,10 @@ let ajaxResHandle =  ( data,resolve,reject ) => {
 // 接口请求
 
 // 登录
-export const requestLogin = params => { return myAjax.post(`/api/user/login`, params) };
+export const requestLogin = params => { return myAjax.post(`${base}/user/login`, params) };
 
 // 上传图片
-export const uploadFile = params => {return myAjax.post(`${base}/admin/common/upload_image`, params)};
-
-// 上传视频
-export const uploadVideo = params => {return myAjax.post(`${base}/admin/common/upload_video`, params)};
+export const uploadFile = params => {return myAjax.post(`${base}/uploadFile`, params)};
 
 // 轮播图管理
 // 增加轮播图
@@ -60,6 +57,6 @@ export const addBannerList = params => { return myAjax.post(`${base}/admin/banne
 // 获取轮播图列表
 export const getBannerList = params => { return myAjax.get(`${base}/admin/banner/list`,  params)};
 // 编辑轮播图
-export const editBannerList = params => { return myAjax.post(`${base}/admin/banner/update`,params); };
+export const editBannerList = params => { return myAjax.post(`${base}/admin/banner/edit`,params); };
 // 冻结轮播图
-export const removeBannerList = params => { return myAjax.post(`${base}/admin/banner/delete`,params ); }
+export const removeBannerList = params => { return myAjax.post(`${base}/admin/banner/remove`,params ); }

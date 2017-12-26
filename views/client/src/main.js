@@ -11,6 +11,9 @@ import {
 	Switch,
 	Carousel,
   	CarouselItem,
+    Dropdown,
+  DropdownMenu,
+  DropdownItem,
 } from 'element-ui'
 
 Vue.config.productionTip = false
@@ -18,6 +21,9 @@ Vue.config.productionTip = false
 Vue.use(Switch)
 Vue.use(Carousel)
 Vue.use(CarouselItem)
+Vue.use(Dropdown)
+Vue.use(DropdownMenu)
+Vue.use(DropdownItem)
 Vue.use(VueI18n)
 
 

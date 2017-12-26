@@ -11,7 +11,7 @@
 
 		<!--列表-->
 		<el-table border :data="bannerList" highlight-current-row v-loading="listLoading" style="width: 100%;">
-			<el-table-column prop="id" label="#id" width="100">
+			<el-table-column prop="bannerId" label="轮播图id" width="100">
 			</el-table-column>
 			<!--<el-table-column prop="title" label="标题" width="200">-->
 			<!--</el-table-column>-->
@@ -20,7 +20,7 @@
 					<img width="100%" style="vertical-align:middle;" :src="scope.row.img_url" alt="">
 				</template>
 			</el-table-column>
-			<el-table-column label="跳转链接" prop="url" width="auto">
+			<el-table-column label="跳转链接" prop="link" width="auto">
 			</el-table-column>
 			<el-table-column label="操作" prop="status" width="200">
 				<template scope="scope">
@@ -121,6 +121,7 @@
 			}
 		},
 		methods: {
+			// 上传图片及文件方法
             httpUpload(event,type){
                 let file = event.currentTarget.files[0];
                 let form = new FormData();
@@ -128,7 +129,7 @@
                 uploadFile(form).then( res => {
                     console.log(res);
                     // 复制当前的url
-                    this[type].img_url = res.path;
+                    this[type].img_url = res.pictureUrl;
                 }).catch( e => {
                     this.$message({
                         message: e,
