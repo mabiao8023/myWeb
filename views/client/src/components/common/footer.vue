@@ -24,7 +24,7 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style  scoped>
+<style  scoped lang="less" rel="stylesheet/less">
 h1, h2 {
   font-weight: normal;
 }
@@ -43,10 +43,12 @@ a {
 	color:#888889;
 	padding:30px;
 	margin-top:30px;
+	
 }
 .footer-container{
 	width:100%;
 	max-width:1240px;
+	margin:0 auto;
 }
 .footer-container li{
 	padding:5px;

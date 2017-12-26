@@ -114,7 +114,7 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style scoped lang="less" rel="stylesheet/less">
 h1, h2 {
   font-weight: normal;
 }
@@ -209,5 +209,15 @@ a {
   margin-left: -337.25px;
   border:1px solid #fff;
   padding:40px;
+  h1{
+    font-size:46px;
+    padding:20px;
+    border-bottom:2px solid #fff;
+  }
+  p{
+    width:300px;
+    text-align:center;
+  }
 }
+
 </style>
