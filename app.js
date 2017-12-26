@@ -62,7 +62,7 @@ app.use(logger())
 app.use(session(app))
 app.use(bodyParser({limit:'10mb'}))
 
-// 静态资源静态资源路径后端上传
+// 静态资源静态资源路径后端上传,gzip压缩处理
 app.use(koaStatic(path.join( __dirname,  './static'),{maxage:7200000,gzip:true}));
 // 前台静态文件
 app.use(koaStatic(path.join( __dirname,  './views'),{maxage:7200000,gzip:true}));
@@ -80,4 +80,13 @@ app
 
 
 app.listen(80)
+// 应用程序的错误监听
+app.on('error', (err, ctx) => {
+  console.log('server error', err, ctx);
+  ctx.body = {
+    code:0,
+    msg:err,
+    data:[]
+  }
+});
 console.log('app started at port 80...');

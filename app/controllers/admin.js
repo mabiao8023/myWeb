@@ -59,21 +59,23 @@ exports.addAdminBannerList = async (ctx,next) => {
  */
 exports.removeAdminBannerList = async (ctx,next) => {
 	let body = ctx.request.body;
-	await Banner.update(body,{status:0},(err,doc) => {
-		if(err){
-			ctx.body = {
-				code:0,
-				msg:'操作失败',
-				data:[]
-			}
-		}else{
-			ctx.body = {
-			code:1,
-			msg:'操作成功',
-			data:[]
-		}
-		}
-	} );
+	await Banner.update({"bannerId":Number(body.bannerId)},{status:0})
+			.exec()
+			.then( res => {
+				ctx.body = {
+						code:1,
+						msg:'操作成功',
+						data:{}
+					}
+			})
+			.catch( err => {
+				ctx.body = {
+						code:0,
+						msg:'操作失败',
+						data:{}
+					}
+				} );
+	return next();
 }
 
 /**
@@ -84,19 +86,19 @@ exports.removeAdminBannerList = async (ctx,next) => {
  */
 exports.editAdminBannerList = async (ctx,next) => {
 	let body = ctx.request.body;
-	await Banner.update({bannerId:body.bannerId},body,(err,doc) => {
-		if(err){
+	await Banner.update({bannerId:Number(body.bannerId)},body)
+		.exec()
+		.then( res => {
+			ctx.body = {
+				code:1,
+				msg:'操作成功',
+				data:[]
+			}
+		} ).catch( err => {
 			ctx.body = {
 				code:0,
 				msg:'操作失败',
 				data:[]
-			}
-		}else{
-			ctx.body = {
-			code:1,
-			msg:'操作成功',
-			data:[]
-		}
-		}
-	} );
+			}	
+		});
 }

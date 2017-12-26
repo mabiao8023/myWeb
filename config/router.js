@@ -15,7 +15,7 @@ module.exports = function(){
   // router.post('/u/update', App.hasBody, App.hasToken, User.update)
 
   // DB Interface test
-  router.get('/user/users',User.users)
+  // router.get('/user/users',User.users)
   // router.post('/test/user/add',User.addUser)
   // router.post('/test/user/delete',User.deleteUser)
   // 修改用户信息接口
@@ -30,9 +30,9 @@ module.exports = function(){
   router.get('/admin/banner/list',Admin.getAdminBannerList)
   // 添加轮播图接口
   router.post('/admin/banner/add',Admin.addAdminBannerList)
-  // 后台冻结轮播图接口与
+  // 后台冻结轮播图接口
   router.post('/admin/banner/remove',Admin.removeAdminBannerList)
-   // 后台冻结轮播图接口与
+   // 后台冻结轮播图接口
   router.post('/admin/banner/edit',Admin.editAdminBannerList)
 
   return router
