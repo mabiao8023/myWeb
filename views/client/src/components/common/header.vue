@@ -1,5 +1,5 @@
 <template>
-  <header class="header">
+  <header class="header" :style="{background: color}">
       <div class="container clear">
           <div class="logo">
               <img src="../../assets/logo.png">
@@ -20,13 +20,10 @@
                     </el-dropdown>
                   </li>
                   <li>
-                      家具
+                      首页
                   </li>
                   <li>
-                      石材
-                  </li>
-                  <li>
-                      联系我们
+                      关于我们
                   </li>
               </ul>
           </div>
@@ -37,9 +34,7 @@
 <script>
 export default {
   name: 'hello',
-  props:{
-    color
-  },
+  props:['color'],
   data () {
     return {
       

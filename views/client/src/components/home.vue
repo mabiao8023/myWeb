@@ -8,8 +8,8 @@
         <img class='el-carousel-item-img' src="../assets/banner1.jpg">
         <div class="el-carousel-item-box">
             <div class="content">
-                <h1>REX</h1>
-                <p>设计永恒的美，受到珍贵的自然材料的启发，协调了地板和墙壁的装饰。历史悠久的传统结合最新的陶瓷设计趋势为您打造理想的住宅、酒店、餐馆、商店和健康中心！</p>
+                <h1>标题</h1>
+                <p>一些介绍，设计永恒的美，受到珍贵的自然材料的启发，协调了地板和墙壁的装饰。历史悠久的传统结合最新的陶瓷设计趋势为您打造理想的住宅、酒店、餐馆、商店和健康中心！</p>
                 <div class="button">查看详情</div>
             </div>
         </div>
@@ -227,9 +227,10 @@ a {
     cursor: pointer;
     margin:20px auto;
     padding:10px 0;
+    font-size:20px;
     text-align:center;
     color:#000;
-    width:100px;
+    width:160px; 
     background:rgba(255,255,255,.7);
     border:1px solid #fff;
   }
