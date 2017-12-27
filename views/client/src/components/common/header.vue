@@ -37,6 +37,9 @@
 <script>
 export default {
   name: 'hello',
+  props:{
+    color
+  },
   data () {
     return {
       
