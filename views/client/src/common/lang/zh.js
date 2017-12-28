@@ -1,3 +1,6 @@
 module.exports =  {
-	hello: '好好学习，天天向上！'
+	header:{
+		index:'首页',
+		about:'关于我们'
+	}
 }

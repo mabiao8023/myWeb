@@ -1,3 +1,6 @@
 module.exports = {
-	hello: 'good good study, day day up!'
+	header:{
+		index:'index',
+		about:'about'
+	}
 }

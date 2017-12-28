@@ -28,12 +28,12 @@ Vue.use(VueI18n)
 
 
 const i18n = new VueI18n({
-    locale: 'en',  // 语言标识
+    locale: 'zh',  // 语言标识
     messages: {
         'zh': require('./common/lang/zh'),
         'en': require('./common/lang/en')
     }
-})
+});
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
@@ -41,4 +41,4 @@ new Vue({
   i18n,
   template: '<App/>',
   components: { App }
-})
+});

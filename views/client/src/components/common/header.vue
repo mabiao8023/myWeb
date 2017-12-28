@@ -9,21 +9,21 @@
               <!--     <li>关于我们</li>
                   <li>产品</li> -->
                   <li>
-                    <el-dropdown>
+                    <el-dropdown @command="changLang">
                       <span class="el-dropdown-link">
-                        中文/EN<i class="el-icon-caret-bottom el-icon--right"></i>
+                        中文/EN<i class="el-icon-arrow-down el-icon--right"></i>
                       </span>
                       <el-dropdown-menu slot="dropdown">
-                        <el-dropdown-item>中文</el-dropdown-item>
-                        <el-dropdown-item>EN</el-dropdown-item>
+                        <el-dropdown-item command='zh'>中文</el-dropdown-item>
+                        <el-dropdown-item command='en'>English</el-dropdown-item>
                       </el-dropdown-menu>
                     </el-dropdown>
                   </li>
-                  <li>
-                      首页
+                  <li @click='gotoIndexPage'>
+                      {{$t('header.index')}}
                   </li>
-                  <li>
-                      关于我们
+                  <li @click="gotoAbout">
+                      {{$t('header.about')}}
                   </li>
               </ul>
           </div>
@@ -38,6 +38,21 @@ export default {
   data () {
     return {
       
+    }
+  },
+  methods:{
+    changLang(command){
+      this.$i18n.locale = command;
+    },
+    gotoIndexPage(){
+      this.$router.push({
+          path:'/'
+      });
+    },
+    gotoAbout(){
+this.$router.push({
+          path:'/about'
+      });
     }
   }
 }
