@@ -77,8 +77,14 @@ const router = require('./config/router')()
 
 app
   .use(router.routes())
-  .use(router.allowedMethods());
-
+  .use(router.allowedMethods())
+  .use( async (ctx,next) => {
+    await next();
+    if(ctx.path === '/'){
+      // 根目录重定向到当前页面
+      ctx.redirect('back', '/client/dist/');
+    }
+  } );
 
 
 app.listen(80)
