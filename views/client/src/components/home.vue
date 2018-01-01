@@ -4,17 +4,17 @@
     
   <!-- 轮播插件 -->
     <el-carousel class="el-carousel" height='700px' :autoplay='true' :interval="5000">
-    <el-carousel-item class="el-carousel-item" key="item1">
+    <el-carousel-item v-for="(item,index) in banner" class="el-carousel-item" :key="'banner'+index">
         <img class='el-carousel-item-img' src="../assets/banner1.jpg">
         <div class="el-carousel-item-box">
             <div class="content">
-                <h1>标题</h1>
-                <p>一些介绍，设计永恒的美，受到珍贵的自然材料的启发，协调了地板和墙壁的装饰。历史悠久的传统结合最新的陶瓷设计趋势为您打造理想的住宅、酒店、餐馆、商店和健康中心！</p>
+                <h1>{{ item.lang[$i18n.locale].title }}</h1>
+                <p>{{ item.lang[$i18n.locale].desc}}</p>
                 <div class="button" @click="gotoPage('/product/1')">查看详情</div>
             </div>
         </div>
     </el-carousel-item>
-    <el-carousel-item class="el-carousel-item" key="item2">
+   <!--  <el-carousel-item class="el-carousel-item" key="item2">
         <img class='el-carousel-item-img' src="../assets/banner2.jpg">
         <div class="el-carousel-item-box">
             <div class="content">
@@ -33,12 +33,12 @@
                 <div class="button" @click="gotoPage('/product/1')">查看详情</div>
             </div>
         </div>
-    </el-carousel-item>
+    </el-carousel-item> -->
    
   </el-carousel>
   <!-- 家具产品 -->
     <section class="part">
-        <h1>家具</h1>
+        <h1>家具 <span class="load_more" @click="gotoProductsPage('家具')">查看全部></span></h1>
         <ul class="product-list">
             <li 
             @mouseenter="jiajumouserEnter(1)" 
@@ -153,13 +153,14 @@ export default {
       jiajuSelectedIndex:0,
       // 当前石材的选中的
       shicaiSelectedIndex:0,
+      banner:[]
     }
   },
+  computed:{
+
+  },
   watch:{
-    // 中英文切换
-    value(val,newVal){
-      
-    },
+    
   },
   methods:{
     jiajumouserEnter(index){
@@ -184,10 +185,23 @@ export default {
       this.$router.push({
         path:'/product/1'
       })
+    },
+    gotoProductsPage(type){
+      this.$router.push({
+        path:'/products/家具'
+      })
+    },
+    // 获取banner图列表
+    getBannerList(){
+      this.$http.get('/api/banner/list')
+        .then( res => {
+          this.banner = res.data.data;
+          console.log(this.banner);
+        } )
     }
   },
   mounted(){
-    
+    this.getBannerList();
   }
 }
 </script>
@@ -219,6 +233,17 @@ a {
     padding-bottom: 20px;
     background:url('../assets/title-bg2.png') no-repeat center bottom;
     background-size:200px 12px;
+    position:relative;
+    .load_more{
+      position:absolute;
+      right:20px;
+      font-size:18px;
+      bottom:10px;
+      cursor:pointer;
+    }
+    .load_more:hover{
+      color:#999;
+    }
 }
 .part .product-list{
   width:100%;

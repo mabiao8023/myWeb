@@ -3,6 +3,7 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import axios from 'axios'
 // 初始化
 import 'normalize.css'
 // 国际化
@@ -14,8 +15,11 @@ import {
     Dropdown,
   DropdownMenu,
   DropdownItem,
+  Breadcrumb,
+  BreadcrumbItem
 } from 'element-ui'
 
+Vue.prototype.$http = axios
 Vue.config.productionTip = false
 
 Vue.use(Switch)
@@ -24,6 +28,8 @@ Vue.use(CarouselItem)
 Vue.use(Dropdown)
 Vue.use(DropdownMenu)
 Vue.use(DropdownItem)
+// Vue.use(Breadcrumb)
+// Vue.use(BreadcrumbItem)
 Vue.use(VueI18n)
 
 

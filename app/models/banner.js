@@ -16,10 +16,32 @@ var BannerSchema = new Schema({
   	type: Number,
   	default: 1,
   },
-  title:{
-    required: true,
-    type: String
+  // 语言标识
+  lang:{
+    // 中文标识
+    zh:{
+      desc:{
+        required: true,
+        type: String
+      },
+      title:{
+        required: true,
+        type: String
+      },
+    },
+    // 英文标识
+    en:{
+      desc:{
+        required: true,
+        type: String
+      },
+      title:{
+        required: true,
+        type: String
+      },
+    },
   },
+  
   link:{
     type: String
   },

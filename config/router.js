@@ -26,6 +26,7 @@ module.exports = function(){
   router.post('/uploadFile',App.uploadImage)
 
 
+
   // 后台轮播图接口
   router.get('/admin/banner/list',Admin.getAdminBannerList)
   // 添加轮播图接口
@@ -34,6 +35,11 @@ module.exports = function(){
   router.post('/admin/banner/remove',Admin.removeAdminBannerList)
    // 后台冻结轮播图接口
   router.post('/admin/banner/edit',Admin.editAdminBannerList)
+
+
+
+  // 前台获取banner图列表
+  router.get('/banner/list',Admin.getBannerList)
 
   return router
 }

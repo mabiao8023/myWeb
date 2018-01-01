@@ -6,6 +6,20 @@ var mongoose = require('mongoose')
 var path = require('path')
 var Banner = mongoose.model('Banner');
 
+/**
+ * 前台获取banner图接口
+ * @param  {[type]}   ctx  [description]
+ * @param  {Function} next [description]
+ * @return {[type]}        [description]
+ */
+exports.getBannerList = async(ctx,next) => {
+	let banners = await Banner.find({status:1});
+	ctx.body = {
+		code:1,
+		msg:'请求成功',
+		data:banners
+	}
+}
 
 /**
  * 后台获取banner图接口

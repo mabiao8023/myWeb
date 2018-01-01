@@ -11,13 +11,25 @@
 
 		<!--列表-->
 		<el-table border :data="bannerList" highlight-current-row v-loading="listLoading" style="width: 100%;">
-			<el-table-column prop="bannerId" label="轮播图id" width="100">
+			<el-table-column prop="bannerId" label="轮播图编号" width="120">
 			</el-table-column>
 			<!--<el-table-column prop="title" label="标题" width="200">-->
 			<!--</el-table-column>-->
 			<el-table-column prop="img_url" label="图片" width="200">
 				<template scope="scope">
 					<img width="100%" style="vertical-align:middle;" :src="scope.row.img_url" alt="">
+				</template>
+			</el-table-column>
+			<el-table-column label="标题" width="auto">
+				<template scope="scope">
+					<p>中文：{{ scope.row.lang.zh.title }}</p>
+					<p>英文：{{ scope.row.lang.en.title }}</p>
+				</template>
+			</el-table-column>
+			<el-table-column label="描述" width="auto">
+				<template scope="scope">
+					<p>中文：{{ scope.row.lang.zh.desc }}</p>
+					<p>英文：{{ scope.row.lang.en.desc }}</p>
 				</template>
 			</el-table-column>
 			<el-table-column label="跳转链接" prop="link" width="auto">
@@ -36,16 +48,25 @@
 		<!--编辑界面-->
 		<el-dialog title="编辑轮播图" v-model="editFormVisible" :close-on-click-modal="false">
 			<el-form :model="editForm" label-width="80px" :rules="editFormRules" ref="editForm">
-				<!--<el-form-item label="标题" prop="title">-->
-					<!--<el-input v-model="editForm.title" auto-complete="off"></el-input>-->
-				<!--</el-form-item>-->
-				<el-form-item label="图片">
+				<el-form-item label="展示图片">
 					<img v-if="editForm.img_url" class="banner" :src="editForm.img_url" alt="">
 					<input type="file" @change="httpUpload($event,'editForm')">
 				</el-form-item>	
 				<el-form-item label="跳转链接">
-					<el-input v-model="editForm.url" auto-complete="off"></el-input>
+					<el-input placeholder="请输入跳转链接" v-model="editForm.link" auto-complete="off"></el-input>
 				</el-form-item>
+				<el-form-item label="中文标题">
+					<el-input placeholder="请输入中文标题" v-model="editForm.lang.zh.title" auto-complete="off"></el-input>
+				</el-form-item>
+				<el-form-item label="英文标题">
+					<el-input placeholder="请输入英文标题" v-model="editForm.lang.en.title" auto-complete="off"></el-input>
+				</el-form-item>
+				<el-form-item label="中文描述">
+					<el-input type="textarea" :rows="2" placeholder="请输入中文描述"   v-model="editForm.lang.zh.desc" auto-complete="off"></el-input>
+				</el-form-item>
+				<el-form-item label="英文描述">
+					<el-input type="textarea" :rows="2" placeholder="请输入英文描述"  v-model="editForm.lang.en.desc" auto-complete="off"></el-input>
+				</el-form-item>	
 				<el-form-item label="是否可用">
 					<el-switch
 							v-model="editForm.status"
@@ -70,13 +91,25 @@
 				<!--<el-form-item label="标题" prop="title">-->
 					<!--<el-input v-model="addForm.title" auto-complete="off"></el-input>-->
 				<!--</el-form-item>-->
-				<el-form-item label="图片">
+				<el-form-item label="展示图片">
 					<img v-if="addForm.img_url" class="banner" :src="addForm.img_url" alt="">
 					<input type="file" @change="httpUpload($event,'addForm')">
 				</el-form-item>	
 				<el-form-item label="跳转链接">
-					<el-input v-model="addForm.url" auto-complete="off"></el-input>
+					<el-input placeholder="请输入跳转链接" v-model="addForm.link" auto-complete="off"></el-input>
 				</el-form-item>
+				<el-form-item label="中文标题">
+					<el-input placeholder="请输入中文标题" v-model="addForm.lang.zh.title" auto-complete="off"></el-input>
+				</el-form-item>
+				<el-form-item label="英文标题">
+					<el-input placeholder="请输入英文标题" v-model="addForm.lang.en.title" auto-complete="off"></el-input>
+				</el-form-item>
+				<el-form-item label="中文描述">
+					<el-input type="textarea" :rows="2" placeholder="请输入中文描述"   v-model="addForm.lang.zh.desc" auto-complete="off"></el-input>
+				</el-form-item>
+				<el-form-item label="英文描述">
+					<el-input type="textarea" :rows="2" placeholder="请输入英文描述"  v-model="addForm.lang.en.desc" auto-complete="off"></el-input>
+				</el-form-item>		
 			</el-form>
 			<div slot="footer" class="dialog-footer">
 				<el-button @click.native="addFormVisible = false">取消</el-button>
@@ -97,10 +130,19 @@
 				bannerList:[],	
 				//编辑界面数据
 				editForm: {
-				    banner_id:1,
-                    img_url:'',
-                    url:'',
-					status:1,
+				    img_url:'',
+					link:'',
+                    status:1,
+                    lang:{
+                    	zh:{
+                    		title:'',
+                    		desc:''
+                    	},
+                    	en:{
+                    		title:'',
+                    		desc:''
+                    	}
+                    }
 				},
 				page: 1,
 				listLoading: false,
@@ -113,8 +155,18 @@
 				//新增界面数据
 				addForm: {
 					img_url:'',
-					url:'',
+					link:'',
                     status:1,
+                    lang:{
+                    	zh:{
+                    		title:'',
+                    		desc:''
+                    	},
+                    	en:{
+                    		title:'',
+                    		desc:''
+                    	}
+                    }
 				},
 				editFormRules:{},
 				addFormRules:{},
@@ -152,7 +204,7 @@
 				}).then(() => {
 					this.listLoading = true;
 					//NProgress.start();
-					let para = { banner_id: row.id };
+					let para = { bannerId: row.bannerId };
 					removeBannerList(para).then((res) => {
 						this.listLoading = false;
 						//NProgress.done();
@@ -169,20 +221,25 @@
 			//显示编辑界面
 			handleEdit: function (row) {
 				this.editFormVisible = true;
-                this.editForm = {
-                    banner_id:row.id,
-					img_url:row.img_url,
-					url:row.url,
-					status:row.status,
-                }
+                this.editForm = row;
 			},
 			//显示新增界面
 			handleAdd: function () {
 				this.addFormVisible = true;
 				this.addForm = {
                     img_url:'',
-                    url:'',
+					link:'',
                     status:1,
+                    lang:{
+                    	zh:{
+                    		title:'',
+                    		desc:''
+                    	},
+                    	en:{
+                    		title:'',
+                    		desc:''
+                    	}
+                    }
 				};
 			},
 			//编辑

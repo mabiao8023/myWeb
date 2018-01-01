@@ -1,7 +1,12 @@
 <template>
   <div class="hello">
   <Header color='#212224'></Header>
-    
+ <!--  <el-breadcrumb separator-class="el-icon-arrow-right">
+    <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+    <el-breadcrumb-item>活动管理</el-breadcrumb-item>
+    <el-breadcrumb-item>活动列表</el-breadcrumb-item>
+    <el-breadcrumb-item>活动详情</el-breadcrumb-item>
+  </el-breadcrumb>   -->
   <section class="main clear">
   	<!-- 轮播插件 -->
     <el-carousel class="el-carousel" indicator-position="outside" :autoplay='true' height="400px"
