@@ -2,7 +2,9 @@ import Login from './views/Login.vue'
 import NotFound from './views/404.vue'
 import Home from './views/Home.vue'
 import Main from './views/Main.vue'
-import BannerList from './views/nav3/bannerList.vue'
+import BannerList from './views/banner/bannerList.vue'
+import Product from './views/product/product'
+import ProductList from './views/product/productList'
 
 let routes = [
     {
@@ -17,28 +19,25 @@ let routes = [
         name: '',
         hidden: true
     },
-    //{ path: '/main', component: Main },
-    // {
-    //     path: '/',
-    //     component: Home,
-    //     name: '用户管理',
-    //     iconCls: 'fa el-icon-message',//图标样式class
-    //     leaf: true,//只有一个节点
-    //     children: [
-    //         { path: '/table', component: Table, name: '用户管理' },
-    //         { path: '/main', component: Main, name: '主页', hidden: true },
-    //         { path: '/form', component: Form, name: '用户渠道',hidden: true },
-    //         { path: '/user', component: user, name: '列表',hidden:true },
-    //     ]
-    // },
     {
         path: '/',
         component: Home,
         name: '业务管理',
         iconCls: 'fa fa-address-card',
-        leaf: true,//只有一个节点
+        leaf: false,//只有一个节点
         children: [
             { path: '/bannerList', component: BannerList, name: '轮播图管理' }
+        ]
+    },
+    {
+        path: '/',
+        component: Home,
+        name: '产品管理',
+        iconCls: 'fa fa-address-card',
+        leaf: false,//只有一个节点
+        children: [
+            { path: '/product', component: Product, name: '产品类别管理' },
+            { path: '/productList/:id', component: ProductList, name: '产品类别管理',hidden:true },
         ]
     },
     {

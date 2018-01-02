@@ -60,3 +60,23 @@ export const getBannerList = params => { return myAjax.get(`${base}/admin/banner
 export const editBannerList = params => { return myAjax.post(`${base}/admin/banner/edit`,params); };
 // 冻结轮播图
 export const removeBannerList = params => { return myAjax.post(`${base}/admin/banner/remove`,params ); }
+
+// 产品类型管理
+// 增加产品类型
+export const addProduct = params => { return myAjax.post(`${base}/admin/product/add`,  params)};
+// 获取产品类型
+export const getProduct = params => { return myAjax.get(`${base}/admin/product/get`,  params)};
+// 编辑产品类型
+export const editProduct = params => { return myAjax.post(`${base}/admin/product/edit`,params); };
+// 冻结产品类型
+export const removeProduct = params => { return myAjax.post(`${base}/admin/product/remove`,params ); }
+
+// 产品列表管理
+// 增加产品类型
+export const addProductList = params => { return myAjax.post(`${base}/admin/productList/add`,  params)};
+// 获取产品类型
+export const getProductList = params => { return myAjax.get(`${base}/admin/productList/get`,  params)};
+// 编辑产品类型
+export const editProductList = params => { return myAjax.post(`${base}/admin/productList/edit`,params); };
+// 冻结产品类型
+export const removeProductList = params => { return myAjax.post(`${base}/admin/productList/remove`,params ); }

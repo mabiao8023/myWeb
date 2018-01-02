@@ -5,7 +5,7 @@ const path = require('path')
 const mongoose = require('mongoose')
 
 
-const db = 'mongodb://127.0.0.1:27017/main'
+const db = 'mongodb://47.52.173.192:27017/main'
 
 /**
  * mongoose连接数据库
@@ -97,5 +97,5 @@ app.on('error', (err, ctx) => {
     data:[]
   }
 });
-console.log('app started at port 80...');
 
+console.log('app started at port 80...');
