@@ -241,8 +241,9 @@ exports.editAdminProduct = async (ctx,next) => {
  * @return {[type]}        [description]
  */
 exports.getAdminProductList = async(ctx,next) => {
-	let body = ctx.request.body;
-	let products = await ProductList.find({productId:body.productId});
+	let query = ctx.query;
+	console.dir(query);
+	let products = await ProductList.find({productId:query.productId});
 	ctx.body = {
 		code:1,
 		msg:'请求成功',

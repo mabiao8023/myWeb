@@ -15,19 +15,19 @@
 			</el-table-column>
 			<el-table-column label="产品名称" width="auto">
 				<template scope="scope">
-						<p>中文： {{ zh.title }}</p>
-						<p>英文： {{ en.title }}</p>
+						<p>中文： {{ scope.row.zh.title }}</p>
+						<p>英文： {{ scope.row.en.title }}</p>
 				</template>
 			</el-table-column>
 			<el-table-column label="产品介绍" width="auto">
 				<template scope="scope">
-						<p>中文： {{ zh.desc }}</p>
-						<p>英文： {{ en.desc }}</p>
+						<p>中文： {{ scope.row.zh.desc }}</p>
+						<p>英文： {{ scope.row.en.desc }}</p>
 				</template>
 			</el-table-column>
 			<el-table-column label="图片详情" width="auto">
 				<template scope="scope">
-						<img :src="scope.row.img_url" alt="">
+						<img class="image" :src="scope.row.img_url" alt="">
 				</template>
 			</el-table-column>
 			<el-table-column label="操作" prop="status" width="200">
@@ -68,7 +68,7 @@
 		</el-dialog>
 
 		<!--新增界面-->
-		<el-dialog title="新增产品类型" v-model="addFormVisible" :close-on-click-modal="false">
+		<el-dialog title="新增产品" v-model="addFormVisible" :close-on-click-modal="false">
 			<el-form :model="addForm" label-width="120px" :rules="addFormRules" ref="addForm">
 				<el-form-item label="中文产品名称">
 					<el-input placeholder="请输入中文名称" v-model="addForm.zh.title" auto-complete="off"></el-input>
@@ -77,14 +77,27 @@
 					<el-input placeholder="请输入英文名称" v-model="addForm.en.title" auto-complete="off"></el-input>
 				</el-form-item>
 				<el-form-item label="中文产品描述">
-					<el-input placeholder="请输入中文标题" v-model="addForm.zh.desc" auto-complete="off"></el-input>
+					<el-input placeholder="请输入中文描述" v-model="addForm.zh.desc" auto-complete="off"></el-input>
 				</el-form-item>
 				<el-form-item label="英文产品描述">
-					<el-input placeholder="请输入英文标题" v-model="addForm.en.desc" auto-complete="off"></el-input>
+					<el-input placeholder="请输入英文描述" v-model="addForm.en.desc" auto-complete="off"></el-input>
 				</el-form-item>
-				<el-form-item label="产品图片">
+				<!-- <el-form-item label="产品图片">
 					<img v-if="addForm.img_url" class="banner" :src="addForm.img_url" alt="">
 					<input type="file" @change="httpUpload($event,'addForm')">
+				</el-form-item> -->
+				<el-form-item label="上传产品图片">
+					<el-upload
+						  class="upload-demo"
+						  action="http://127.0.0.1/api/uploadFile"
+						  :before-upload="beforeUpload"
+						  :on-remove="handleRemove"
+						  :file-list="fileList"
+						  list-type="picture"
+						  :on-success="handleSuccess">
+						  <el-button size="small" type="primary">点击上传</el-button>
+						  <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，可上传多张图片</div>
+					</el-upload>
 				</el-form-item>
 			</el-form>
 			<div slot="footer" class="dialog-footer">
@@ -137,9 +150,55 @@
 				},
 				editFormRules:{},
 				addFormRules:{},
+				fileList: [],
+				addImages:[]
 			}
 		},
 		methods: {
+			handleSuccess(response, file, fileList){
+				var name = file.name;
+				console.log(file);	
+				if(response.code == 1){
+					for( let i = 0 ; i < this.addImages.length; i++  ){
+			        	if( this.addImages[i].name == name ){
+							this.$message({
+		                        message: '该图片已经上传，请重新上传其他图片！',
+		                        type: 'error'
+		                    });
+		                    return false;
+						}
+			        }
+					this.addImages.push({
+						name:file.name,
+						img_url:response.data.pictureUrl
+					});
+				}
+
+				console.dir(this.addImages);
+			},
+			handleRemove(file, fileList) {
+				var name = file.name;
+				this.addImages.forEach( (val,index) => {
+					if( val.name == name ){
+						this.addImages.splice(index,1);
+					}
+				} );
+		        // console.dir(file, fileList);
+		    },
+		    beforeUpload(file) {
+		    	alert(1)
+		        var name = file.name;
+		        console.log(name,this.addImages)
+		        for( let i = 0 ; i < this.addImages.length; i++  ){
+		        	if( this.addImages[i].name == name ){
+						this.$message({
+	                        message: '该图片已经上传，请重新上传其他图片！',
+	                        type: 'error'
+	                    });
+	                    return false;
+					}
+		        }
+		    },
 			// 上传图片及文件方法
             httpUpload(event,type){
                 let file = event.currentTarget.files[0];
@@ -176,7 +235,7 @@
 						this.listLoading = false;
 						//NProgress.done();
 						this.$message({
-							message: '已冻结',
+							message: '已删除',
 							type: 'success'
 						});
 						this.getClassChapter();
@@ -272,6 +331,9 @@
 		max-width:400px;
 		border:1px solid #ccc;
 		border-radius:10px;
+	}
+	.image{
+		width:200px;
 	}
 	.btn{
 		margin:5px 0;
