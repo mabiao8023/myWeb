@@ -57,8 +57,16 @@
 					<el-input placeholder="请输入英文标题" v-model="editForm.en.title" auto-complete="off"></el-input>
 				</el-form-item>
 				<el-form-item label="产品图片">
-					<img v-if="editForm.img_url" class="banner" :src="editForm.img_url" alt="">
-					<input type="file" @change="httpUpload($event,'editForm')">
+					<ul>
+						<li v-for="(item,index) in editForm.img_url">
+							<img v-if="item" class="banner" :src="item">
+							<el-col :span="24">
+							<input type="file" @change="httpUpload($event,'editForm',index)">
+								<el-button type="danger" class="btn" size="small" @click="handleDelImage('editForm',index)">删除当前图片</el-button>
+							</el-col>
+						</li>
+					</ul>
+					<el-button class="btn" type="primary"  @click="handleAddImage('addForm')">增加产品图片</el-button>
 				</el-form-item>
 			</el-form>
 			<div slot="footer" class="dialog-footer">
@@ -82,23 +90,19 @@
 				<el-form-item label="英文产品描述">
 					<el-input placeholder="请输入英文描述" v-model="addForm.en.desc" auto-complete="off"></el-input>
 				</el-form-item>
-				<!-- <el-form-item label="产品图片">
-					<img v-if="addForm.img_url" class="banner" :src="addForm.img_url" alt="">
-					<input type="file" @change="httpUpload($event,'addForm')">
-				</el-form-item> -->
-				<el-form-item label="上传产品图片">
-					<el-upload
-						  class="upload-demo"
-						  action="http://127.0.0.1/api/uploadFile"
-						  :before-upload="beforeUpload"
-						  :on-remove="handleRemove"
-						  :file-list="fileList"
-						  list-type="picture"
-						  :on-success="handleSuccess">
-						  <el-button size="small" type="primary">点击上传</el-button>
-						  <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，可上传多张图片</div>
-					</el-upload>
+				<el-form-item label="产品图片">
+					<ul>
+						<li v-for="(item,index) in addForm.img_url">
+							<img v-if="item" class="banner" :src="item">
+							<el-col :span="24">
+							<input type="file" @change="httpUpload($event,'addForm',index)">
+								<el-button type="danger" class="btn" size="small" @click="handleDelImage('addForm',index)">删除当前图片</el-button>
+							</el-col>
+						</li>
+					</ul>
+					<el-button class="btn" type="primary"  @click="handleAddImage('addForm')">增加产品图片</el-button>
 				</el-form-item>
+			
 			</el-form>
 			<div slot="footer" class="dialog-footer">
 				<el-button @click.native="addFormVisible = false">取消</el-button>
@@ -121,7 +125,7 @@
 				//编辑界面数据
 				editForm: {
 				    productId:'',
-				    img_url:'',
+				    img_url:[],
                     zh:{
                     	title:'',
                     },
@@ -140,7 +144,7 @@
 				//新增界面数据
 				addForm: {
 					productId:'',
-				    img_url:'',
+				    img_url:[],
                     zh:{
                     	title:'',
                     },
@@ -155,65 +159,27 @@
 			}
 		},
 		methods: {
-			handleSuccess(response, file, fileList){
-				var name = file.name;
-				console.log(file);	
-				if(response.code == 1){
-					for( let i = 0 ; i < this.addImages.length; i++  ){
-			        	if( this.addImages[i].name == name ){
-							this.$message({
-		                        message: '该图片已经上传，请重新上传其他图片！',
-		                        type: 'error'
-		                    });
-		                    return false;
-						}
-			        }
-					this.addImages.push({
-						name:file.name,
-						img_url:response.data.pictureUrl
-					});
-				}
-
-				console.dir(this.addImages);
-			},
-			handleRemove(file, fileList) {
-				var name = file.name;
-				this.addImages.forEach( (val,index) => {
-					if( val.name == name ){
-						this.addImages.splice(index,1);
-					}
-				} );
-		        // console.dir(file, fileList);
-		    },
-		    beforeUpload(file) {
-		    	alert(1)
-		        var name = file.name;
-		        console.log(name,this.addImages)
-		        for( let i = 0 ; i < this.addImages.length; i++  ){
-		        	if( this.addImages[i].name == name ){
-						this.$message({
-	                        message: '该图片已经上传，请重新上传其他图片！',
-	                        type: 'error'
-	                    });
-	                    return false;
-					}
-		        }
-		    },
 			// 上传图片及文件方法
-            httpUpload(event,type){
+            httpUpload(event,type,index){
                 let file = event.currentTarget.files[0];
                 let form = new FormData();
                 form.append('file',file);
                 uploadFile(form).then( res => {
-                    console.log(res);
+                    console.log(res,index);
                     // 复制当前的url
-                    this[type].img_url = res.pictureUrl;
+                    this[type].img_url.splice(index,1,res.pictureUrl);
                 }).catch( e => {
                     this.$message({
                         message: e,
                         type: 'error'
                     });
                 } );
+            },
+            handleAddImage(type){
+            	this[type].img_url.push('');
+            },
+            handleDelImage(type,index){
+            	this[type].img_url.splice(index,1);
             },
 			getClassChapter(){
 				this.listLoading = true;
@@ -254,7 +220,7 @@
 				this.addFormVisible = true;
 				this.addForm = {
 					productId:this.productId,
-				    img_url:'',
+				    img_url:[],
                     zh:{
                     	title:'',
                     },
@@ -328,7 +294,7 @@
 		vertical-align:middle;
 	}
 	.banner{
-		max-width:400px;
+		max-width:200px;
 		border:1px solid #ccc;
 		border-radius:10px;
 	}

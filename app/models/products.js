@@ -16,7 +16,7 @@ const ProductListSchema = new Schema({
 		title:String,
 		desc:String,
 	},
-	img_url:String,
+	img_url:[],
 	status:{
 		required:true,
 		default:1,
