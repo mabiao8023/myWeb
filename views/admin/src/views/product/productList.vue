@@ -27,7 +27,9 @@
 			</el-table-column>
 			<el-table-column label="图片详情" width="auto">
 				<template scope="scope">
-						<img class="image" :src="scope.row.img_url" alt="">
+					<el-col :span="24">
+						<el-button class="btn" type="primary" @click="showImage(scope.row)">查看产品图片</el-button>
+					</el-col>
 				</template>
 			</el-table-column>
 			<el-table-column label="操作" prop="status" width="200">
@@ -51,10 +53,10 @@
 					<el-input placeholder="请输入英文名称" v-model="editForm.en.title" auto-complete="off"></el-input>
 				</el-form-item>
 				<el-form-item label="中文产品描述">
-					<el-input placeholder="请输入中文标题" v-model="editForm.zh.title" auto-complete="off"></el-input>
+					<el-input placeholder="请输入中文标题" v-model="editForm.zh.desc" auto-complete="off"></el-input>
 				</el-form-item>
 				<el-form-item label="英文产品描述">
-					<el-input placeholder="请输入英文标题" v-model="editForm.en.title" auto-complete="off"></el-input>
+					<el-input placeholder="请输入英文标题" v-model="editForm.en.desc" auto-complete="off"></el-input>
 				</el-form-item>
 				<el-form-item label="产品图片">
 					<ul>
@@ -109,6 +111,15 @@
 				<el-button type="primary" @click.native="addSubmit" :loading="addLoading">提交</el-button>
 			</div>
 		</el-dialog>
+
+		<!--弹窗界面-->
+		<el-dialog title="产品图片详情" v-model="popVisible" :close-on-click-modal="false">
+		<el-carousel indicator-position="outside">
+		    <el-carousel-item v-for="item in popData" :key="item">
+		      <img width="100%" height="100%" :src="item">
+		    </el-carousel-item>
+		  </el-carousel>
+		</el-dialog>
 	</section>
 </template>
 
@@ -154,11 +165,16 @@
 				},
 				editFormRules:{},
 				addFormRules:{},
-				fileList: [],
-				addImages:[]
+				popVisible:false,
+				popData:[]
+
 			}
 		},
 		methods: {
+			showImage(row){
+				this.popVisible = true;
+				this.popData = row.img_url;
+			},
 			// 上传图片及文件方法
             httpUpload(event,type,index){
                 let file = event.currentTarget.files[0];

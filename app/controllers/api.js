@@ -1,12 +1,14 @@
 'use strict'
 
 // 用于封装controllers的后端接口方法
+var  _ = require('lodash');
 
 var mongoose = require('mongoose')
 var path = require('path')
 var Banner = mongoose.model('Banner');
 var Product = mongoose.model('Product');
 var ProductList = mongoose.model('ProductList');
+
 
 /**
  * 前台获取banner图接口
@@ -22,6 +24,28 @@ exports.getBannerList = async(ctx,next) => {
 		data:banners
 	}
 }
+
+
+/**
+ * 前台获取banner图接口
+ * @param  {[type]}   ctx  [description]
+ * @param  {Function} next [description]
+ * @return {[type]}        [description]
+ */
+exports.getProduct = async(ctx,next) => {
+	let products = await Product.find({status:1}).lean();
+	for(let i = 0;i < products.length; i ++){
+		let productList = await ProductList.find({'productId':products[i].id});
+		products[i].list = productList;
+	}
+	// let productList = await ProductList.find({'productId':});
+	ctx.body = {
+		code:1,
+		msg:'请求成功',
+		data:products
+	}
+}
+
 
 /**
  * 后台获取banner图接口

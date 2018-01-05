@@ -14,76 +14,23 @@
             </div>
         </div>
     </el-carousel-item>
-   <!--  <el-carousel-item class="el-carousel-item" key="item2">
-        <img class='el-carousel-item-img' src="../assets/banner2.jpg">
-        <div class="el-carousel-item-box">
-            <div class="content">
-                <h1>标题2</h1>
-                <p>一些介绍，设计永恒的美，受到珍贵的自然材料的启发，协调了地板和墙壁的装饰。历史悠久的传统结合最新的陶瓷设计趋势为您打造理想的住宅、酒店、餐馆、商店和健康中心！</p>
-                <div class="button" @click="gotoPage('/about')">关于我们</div>
-            </div>
-        </div>
-    </el-carousel-item>
-    <el-carousel-item class="el-carousel-item" key="item3">
-        <img class='el-carousel-item-img' src="../assets/banner3.jpg">
-        <div class="el-carousel-item-box">
-            <div class="content">
-                <h1>标题3</h1>
-                <p>一些介绍，设计永恒的美，受到珍贵的自然材料的启发，协调了地板和墙壁的装饰。历史悠久的传统结合最新的陶瓷设计趋势为您打造理想的住宅、酒店、餐馆、商店和健康中心！</p>
-                <div class="button" @click="gotoPage('/product/1')">查看详情</div>
-            </div>
-        </div>
-    </el-carousel-item> -->
+   
    
   </el-carousel>
   <!-- 家具产品 -->
-    <section class="part">
-        <h1>家具 <span class="load_more" @click="gotoProductsPage('家具')">查看全部></span></h1>
+    <section class="part" v-for="(item,index) in product">
+        <h1>{{ item[$i18n.locale].title }} <span  class="load_more" @click="gotoProductsPage(item.id)">查看全部></span></h1>
         <ul class="product-list">
             <li 
-            @mouseenter="jiajumouserEnter(1)" 
-            @mouseleave="jiajumouserLeave(1)" 
-            :class="{active:jiajuSelectedIndex == 1}" 
+            @mouseenter="jiajumouserEnter(index)" 
+            @mouseleave="jiajumouserLeave(index)" 
+            :class="{active:jiajuSelectedIndex == index}" 
             class="product-list-item"
-            @click.stop="gotoProductPage()">
-                <img src="../assets/jiaju1.jpg">
-                <p>家具1</p>
-                <div class="mask-box"> 
-                      查看产品详情
-                </div>
-            </li>
-            <li 
-            class="product-list-item" 
-            @mouseenter="jiajumouserEnter(2)" 
-            @mouseleave="jiajumouserLeave(2)" 
-            :class="{active:jiajuSelectedIndex == 2}"
-            @click.stop="gotoProductPage()">
-                <img src="../assets/jiaju2.jpg">
-                <p>家具2</p>
-                <div class="mask-box"> 
-                查看产品详情
-                </div>
-            </li>
-            <li 
-            class="product-list-item" 
-            @mouseenter="jiajumouserEnter(3)"
-            @mouseleave="jiajumouserLeave(3)" 
-            :class="{active:jiajuSelectedIndex == 3}"
-            @click.stop="gotoProductPage()">
-                <img src="../assets/jiaju3.jpg">
-                <p>家具3</p>
-                <div class="mask-box"> 
-                      查看产品详情
-                </div>
-            </li>
-            <li 
-            class="product-list-item" 
-            @mouseenter="jiajumouserEnter(4)" 
-            @mouseleave="jiajumouserLeave(4)" 
-            :class="{active:jiajuSelectedIndex == 4}"
-            @click.stop="gotoProductPage()">
-                <img src="../assets/jiaju4.jpg">
-                <p>家具4</p>
+            @click.stop="gotoProductPage(item.id)"
+            v-for="(val,vindex) in item.list"
+            >
+                <img :src="val.img_url[0]">
+                <p>{{ val[$i18n.locale].title }}</p>
                 <div class="mask-box"> 
                       查看产品详情
                 </div>
@@ -153,7 +100,8 @@ export default {
       jiajuSelectedIndex:0,
       // 当前石材的选中的
       shicaiSelectedIndex:0,
-      banner:[]
+      banner:[],
+      product:[],
     }
   },
   computed:{
@@ -198,10 +146,20 @@ export default {
           this.banner = res.data.data;
           console.log(this.banner);
         } )
-    }
+    },
+    // 获取banner图列表
+    getProductList(){
+      this.$http.get('/api/product')
+        .then( res => {
+          this.product = res.data.data;
+          console.log(this.product);
+        } )
+    },
+
   },
   mounted(){
     this.getBannerList();
+    this.getProductList();
   }
 }
 </script>
