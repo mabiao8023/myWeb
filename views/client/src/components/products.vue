@@ -1,84 +1,29 @@
 <template>
-  <div class="hello">
+  <div class="hello" v-if="product[$i18n.locale]">
   <Header></Header>
     <div class="banner">
 	  	<img  src="../assets/banner1.jpg">
 	  	<div class="mask-box">
 	  		<div class="content-box">
 	  			<div class="content">
-	  				家具
+	  				{{product[$i18n.locale].title}}
 	  			</div>
 	  		</div>
 	  	</div>
 	</div>
   <section class="main clear">
-	 <ul class="product-list">
-            <li 
-            @mouseenter="shicaimouserEnter(1)" 
-            @mouseleave="shicaimouserLeave" 
-            :class="{active:shicaiSelectedIndex == 1}"
-             class="product-list-item"
-            @click.stop="gotoProductPage()" >
-                <img src="../assets/jiaju1.jpg">
-                <p>家具1</p>
-                <div class="mask-box"> 
-                      查看产品详情
-                </div>
-            </li>
-            <li class="product-list-item" @mouseenter="shicaimouserEnter(2)" @mouseleave="shicaimouserLeave" :class="{active:shicaiSelectedIndex == 2}"
-              @click.stop="gotoProductPage()">
-                <img src="../assets/jiaju2.jpg">
-                <p>家具2</p>
-                <div class="mask-box"> 
-                      查看产品详情
-                </div>
-            </li>
-            <li class="product-list-item" @mouseenter="shicaimouserEnter(3)" @mouseleave="shicaimouserLeave" :class="{active:shicaiSelectedIndex == 3}"
-              @click.stop="gotoProductPage()">
-                <img src="../assets/jiaju3.jpg">
-                <p>家具3</p>
-                <div class="mask-box"> 
-                      查看产品详情
-                </div>
-            </li>
-            <li class="product-list-item" @mouseenter="shicaimouserEnter(4)" @mouseleave="shicaimouserLeave" :class="{active:shicaiSelectedIndex == 4}" @click.stop="gotoProductPage()">
-                <img src="../assets/jiaju4.jpg">
-                <p>家具4</p>
-                <div class="mask-box"> 
-                      查看产品详情
-                </div>
-            </li>
-             <li 
-            @mouseenter="shicaimouserEnter(1)" 
-            @mouseleave="shicaimouserLeave" 
-            :class="{active:shicaiSelectedIndex == 1}"
-             class="product-list-item"
-            @click.stop="gotoProductPage()" >
-                <img src="../assets/jiaju1.jpg">
-                <p>家具1</p>
-                <div class="mask-box"> 
-                      查看产品详情
-                </div>
-            </li>
-            <li class="product-list-item" @mouseenter="shicaimouserEnter(2)" @mouseleave="shicaimouserLeave" :class="{active:shicaiSelectedIndex == 2}"
-              @click.stop="gotoProductPage()">
-                <img src="../assets/jiaju2.jpg">
-                <p>家具2</p>
-                <div class="mask-box"> 
-                      查看产品详情
-                </div>
-            </li>
-            <li class="product-list-item" @mouseenter="shicaimouserEnter(3)" @mouseleave="shicaimouserLeave" :class="{active:shicaiSelectedIndex == 3}"
-              @click.stop="gotoProductPage()">
-                <img src="../assets/jiaju3.jpg">
-                <p>家具3</p>
-                <div class="mask-box"> 
-                      查看产品详情
-                </div>
-            </li>
-            <li class="product-list-item" @mouseenter="shicaimouserEnter(4)" @mouseleave="shicaimouserLeave" :class="{active:shicaiSelectedIndex == 4}" @click.stop="gotoProductPage()">
-                <img src="../assets/jiaju4.jpg">
-                <p>家具4</p>
+	   <ul class="product-list">
+            <li
+            v-if="product.list.length>0" 
+            v-for="(val,vindex) in product.list"
+            @mouseenter="productMouserEnter(index,vindex)" 
+            @mouseleave="productMouserLeave(index,vindex)" 
+            :class="{active:product.curIndex == vindex}" 
+            class="product-list-item"
+            @click.stop="gotoProductPage(val.id)"
+            >
+                <img :src="val.img_url[0]">
+                <p>{{ val[$i18n.locale].title }} {{ product.curIndex }}</p>
                 <div class="mask-box"> 
                       查看产品详情
                 </div>
@@ -102,25 +47,38 @@ export default {
   },
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App',
       value: true,
-      // 当前家具的选中的
-      shicaiSelectedIndex:0,
+      product:{},
     }
   },
-  watch:{
-    // 中英文切换
-    value(val,newVal){
-      this.$i18n.locale = this.$i18n.locale == 'zh' ? 'en' : 'zh';
+  methods:{
+    productMouserEnter(index,vindex){
+      this.product.curIndex = vindex;
+    },
+    productMouserLeave(index,vindex){
+      this.product.curIndex = -1;
+    },
+    gotoProductPage(id){
+      this.$router.push({
+        path:`/product/${id}`
+      })
+    },
+    // 获取banner图列表
+    getProductList(){
+      console.log(this.$route.params.id);
+      this.$http.get('/api/product',{
+        params:{
+          id:this.$route.params.id
+        }
+      }).then( res => {
+          this.product = res.data.data;
+          this.$set(this.product,'curIndex',-1);
+          console.log(this.product);
+        } )
     },
   },
-  methods:{
-    shicaimouserEnter(index){
-      this.shicaiSelectedIndex = index;
-    },
-    shicaimouserLeave(){
-      this.shicaiSelectedIndex = -1;
-    },
+  mounted(){
+    this.getProductList();
   }
 }
 </script>

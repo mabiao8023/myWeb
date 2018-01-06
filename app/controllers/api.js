@@ -27,22 +27,54 @@ exports.getBannerList = async(ctx,next) => {
 
 
 /**
- * 前台获取banner图接口
+ * 前台获取产品类型接口
  * @param  {[type]}   ctx  [description]
  * @param  {Function} next [description]
  * @return {[type]}        [description]
  */
 exports.getProduct = async(ctx,next) => {
-	let products = await Product.find({status:1}).lean();
-	for(let i = 0;i < products.length; i ++){
-		let productList = await ProductList.find({'productId':products[i].id});
-		products[i].list = productList;
+	let id = ctx.query.id;
+	console.log(id);
+	let result;
+	if(id !== undefined){
+		// 获得固定的产品
+		let products = await Product.find({id:id}).lean();
+		let productList = await ProductList.find({'productId':products[0].id});
+		result = products[0];
+		result.list = productList;
+
+	}else{
+		// 获得所有的产品
+		let products = await Product.find({status:1}).lean();
+		for(let i = 0;i < products.length; i ++){
+			let productList = await ProductList.find({'productId':products[i].id});
+			products[i].list = productList;
+		}
+		result = products;
 	}
+	
+	ctx.body = {
+		code:1,
+		msg:'请求成功',
+		data:result
+	}
+}
+
+
+/**
+ * 前台获取具体产品接口
+ * @param  {[type]}   ctx  [description]
+ * @param  {Function} next [description]
+ * @return {[type]}        [description]
+ */
+exports.getProductDetail = async(ctx,next) => {
+	let id = ctx.query.id;
+	let productList = await ProductList.find({'id':id});
 	// let productList = await ProductList.find({'productId':});
 	ctx.body = {
 		code:1,
 		msg:'请求成功',
-		data:products
+		data:productList[0]
 	}
 }
 

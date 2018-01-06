@@ -14,63 +14,21 @@
             </div>
         </div>
     </el-carousel-item>
-   
-   
   </el-carousel>
   <!-- 家具产品 -->
     <section class="part" v-for="(item,index) in product">
         <h1>{{ item[$i18n.locale].title }} <span  class="load_more" @click="gotoProductsPage(item.id)">查看全部></span></h1>
         <ul class="product-list">
             <li 
-            @mouseenter="jiajumouserEnter(index)" 
-            @mouseleave="jiajumouserLeave(index)" 
-            :class="{active:jiajuSelectedIndex == index}" 
-            class="product-list-item"
-            @click.stop="gotoProductPage(item.id)"
             v-for="(val,vindex) in item.list"
+            @mouseenter="productMouserEnter(index,vindex)" 
+            @mouseleave="productMouserLeave(index,vindex)" 
+            :class="{active:item.curIndex == vindex}" 
+            class="product-list-item"
+            @click.stop="gotoProductPage(val.id)"
             >
                 <img :src="val.img_url[0]">
-                <p>{{ val[$i18n.locale].title }}</p>
-                <div class="mask-box"> 
-                      查看产品详情
-                </div>
-            </li>
-        </ul>
-    </section>
-     <section class="part">
-        <h1>石材</h1>
-        <ul class="product-list">
-            <li 
-            @mouseenter="shicaimouserEnter(1)" 
-            @mouseleave="shicaimouserLeave" 
-            :class="{active:shicaiSelectedIndex == 1}"
-             class="product-list-item"
-            @click.stop="gotoProductPage()" >
-                <img src="../assets/jiaju1.jpg">
-                <p>家具1</p>
-                <div class="mask-box"> 
-                      查看产品详情
-                </div>
-            </li>
-            <li class="product-list-item" @mouseenter="shicaimouserEnter(2)" @mouseleave="shicaimouserLeave" :class="{active:shicaiSelectedIndex == 2}"
-              @click.stop="gotoProductPage()">
-                <img src="../assets/jiaju2.jpg">
-                <p>家具2</p>
-                <div class="mask-box"> 
-                      查看产品详情
-                </div>
-            </li>
-            <li class="product-list-item" @mouseenter="shicaimouserEnter(3)" @mouseleave="shicaimouserLeave" :class="{active:shicaiSelectedIndex == 3}"
-              @click.stop="gotoProductPage()">
-                <img src="../assets/jiaju3.jpg">
-                <p>家具3</p>
-                <div class="mask-box"> 
-                      查看产品详情
-                </div>
-            </li>
-            <li class="product-list-item" @mouseenter="shicaimouserEnter(4)" @mouseleave="shicaimouserLeave" :class="{active:shicaiSelectedIndex == 4}" @click.stop="gotoProductPage()">
-                <img src="../assets/jiaju4.jpg">
-                <p>家具4</p>
+                <p>{{ val[$i18n.locale].title }} {{ item.curIndex }}</p>
                 <div class="mask-box"> 
                       查看产品详情
                 </div>
@@ -111,32 +69,25 @@ export default {
     
   },
   methods:{
-    jiajumouserEnter(index){
-      this.jiajuSelectedIndex = index;
+    productMouserEnter(index,vindex){
+      this.product[index].curIndex = vindex;
     },
-    jiajumouserLeave(){
-      this.jiajuSelectedIndex = -1;
-    },
-    shicaimouserEnter(index){
-      this.shicaiSelectedIndex = index;
-    },
-    shicaimouserLeave(){
-      this.shicaiSelectedIndex = -1;
+    productMouserLeave(index,vindex){
+      this.product[index].curIndex = -1;
     },
     gotoPage(url){
       this.$router.push({
         path:url
       })
-      // location.href = url;
     },
-    gotoProductPage(){
+    gotoProductPage(id){
       this.$router.push({
-        path:'/product/1'
+        path:`/product/${id}`
       })
     },
-    gotoProductsPage(type){
+    gotoProductsPage(id){
       this.$router.push({
-        path:'/products/家具'
+        path:`/products/${id}`
       })
     },
     // 获取banner图列表
@@ -152,10 +103,13 @@ export default {
       this.$http.get('/api/product')
         .then( res => {
           this.product = res.data.data;
+          this.product.forEach( (val,index) => {
+            // 要注意把数据绑定到固定的数值中
+            this.$set(this.product[index],'curIndex',-1);
+          } )
           console.log(this.product);
         } )
     },
-
   },
   mounted(){
     this.getBannerList();

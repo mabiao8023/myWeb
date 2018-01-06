@@ -61,5 +61,8 @@ module.exports = function(){
   // 前台获取产品类型列表
   router.get('/product',Api.getProduct)
 
+  // 前台获取产品详情页面
+  router.get('/productDetail',Api.getProductDetail)
+
   return router
 }

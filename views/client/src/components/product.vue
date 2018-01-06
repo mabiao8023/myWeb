@@ -11,20 +11,14 @@
   	<!-- 轮播插件 -->
     <el-carousel class="el-carousel" indicator-position="outside" :autoplay='true' height="400px"
  :interval="5000">
-    <el-carousel-item class="el-carousel-item" :key="item">
-        <img class='el-carousel-item-img' src="../assets/banner1.jpg">
-    </el-carousel-item>
-    <el-carousel-item class="el-carousel-item" :key="item">
-        <img class='el-carousel-item-img' src="../assets/banner1.jpg">
-    </el-carousel-item>
-    <el-carousel-item class="el-carousel-item" :key="item">
-        <img class='el-carousel-item-img' src="../assets/banner1.jpg">
+    <el-carousel-item v-for='(item,index) in product.img_url'  class="el-carousel-item" :key="item">
+        <img class='el-carousel-item-img' :src="item">
     </el-carousel-item>
     </el-carousel>
     <div class="content ">
-        <h3 class="title">家具沙发</h3>
+        <h3 class="title">{{product[$i18n.locale].title}}</h3>
         <p class="desc">
-          小尺度沙发，轮廓清爽干脆，后背双弧线造型，让肩和腰的支撑更为舒适。30度清新转角让空间布局充满灵动感，每一刻都是幸福的彼岸。小尺度沙发，轮廓清爽干脆，后背双弧线造型，让肩和腰的支撑更为舒适。30度清新转角让空间布局充满灵动感，每一刻都是幸福的彼岸。
+          {{product[$i18n.locale].desc}}
         </p>
     </div>
   </section>
@@ -45,25 +39,27 @@ export default {
   },
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App',
-      value: true,
-      // 当前家具的选中的
-      jiajuSelectedIndex:0,
+      id:1,
+      product:{}
     }
-  },
-  watch:{
-    // 中英文切换
-    value(val,newVal){
-      this.$i18n.locale = this.$i18n.locale == 'zh' ? 'en' : 'zh';
-    },
   },
   methods:{
-    mouserEnter(){
-      this.jiajuSelectedIndex = 1;
+    // 获得一个产品的详情
+    getProductDetail(){
+      console.log(this.$route.params);
+      this.id = this.$route.params.productId;
+      console.log(this.id);
+      this.$http.get('/api/productDetail',{
+            params:{
+                id:this.id
+            }
+        }).then( res => {
+          this.product = res.data.data;
+        } )
     },
-    mouserLeave(){
-      this.jiajuSelectedIndex = 0;
-    }
+  },
+  mounted(){
+    this.getProductDetail();
   }
 }
 </script>
