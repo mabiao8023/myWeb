@@ -10,14 +10,14 @@
             <div class="content">
                 <h1>{{ item.lang[$i18n.locale].title }}</h1>
                 <p>{{ item.lang[$i18n.locale].desc}}</p>
-                <div class="button" @click="gotoPage('/product/1')">查看详情</div>
+                <div class="button" v-if="item.link" @click="gotoPage(item.link)">{{$t('viewDetail')}}</div>
             </div>
         </div>
     </el-carousel-item>
   </el-carousel>
   <!-- 家具产品 -->
     <section class="part" v-for="(item,index) in product">
-        <h1>{{ item[$i18n.locale].title }} <span  class="load_more" @click="gotoProductsPage(item.id)">查看全部></span></h1>
+        <h1>{{ item[$i18n.locale].title }} <span  class="load_more" @click="gotoProductsPage(item.id)">{{$t('viewMore')}}></span></h1>
         <ul class="product-list">
             <li 
             v-for="(val,vindex) in item.list"
@@ -28,9 +28,9 @@
             @click.stop="gotoProductPage(val.id)"
             >
                 <img :src="val.img_url[0]">
-                <p>{{ val[$i18n.locale].title }} {{ item.curIndex }}</p>
+                <p>{{ val[$i18n.locale].title }}</p>
                 <div class="mask-box"> 
-                      查看产品详情
+                     {{$t('viewDetail')}}
                 </div>
             </li>
         </ul>
@@ -76,9 +76,7 @@ export default {
       this.product[index].curIndex = -1;
     },
     gotoPage(url){
-      this.$router.push({
-        path:url
-      })
+      location.href = url;
     },
     gotoProductPage(id){
       this.$router.push({

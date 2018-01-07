@@ -80,10 +80,11 @@
 	</template>
 
 <script>
+	import { modify } from '../api/api';
 	export default {
 		data() {
 			return {
-				sysName:'平台后台管理系统',
+				sysName:'官网后台管理系统',
 				collapsed:false,
 				sysUserName: '',
 				sysUserAvatar: 'https://raw.githubusercontent.com/taylorchen709/markdown-images/master/vueadmin/user.png',
@@ -138,13 +139,21 @@
 					pwd:this.pwd
 				}
 				if( /^[A-Za-z0-9]+$/.test(this.pwd) ){
-
+					modify({name:'admin',pwd:this.pwd}).then( res => {
+						this.$message({
+				          message: '修改成功',
+				          type: 'success'
+				        });
+				        this.dialogTableVisible = false;
+				        this.$router.push({
+				        	path:'/login'
+				        })
+					} ).catch( e => {
+						this.$message.error('修改失败，请重新修改');
+					} )
 						
 				}else{
-					// this.$message({
-			  //           type: ' error',
-			  //           message: '请输入只含字母和数字的密码'
-			  //         });
+					this.$message.error('请输入正确格式的密码');
 				}
 			}
 		},

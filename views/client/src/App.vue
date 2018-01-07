@@ -24,6 +24,7 @@ export default {
   text-align: center;
   color: #2c3e50;
   /*margin-top: 60px;*/
+  /*background: url(./assets/bg.jpg) repeat-y;*/
 }
 img{
   width:100%;

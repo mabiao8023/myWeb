@@ -53,10 +53,10 @@
 					<el-input placeholder="请输入英文名称" v-model="editForm.en.title" auto-complete="off"></el-input>
 				</el-form-item>
 				<el-form-item label="中文产品描述">
-					<el-input placeholder="请输入中文标题" v-model="editForm.zh.desc" auto-complete="off"></el-input>
+					<el-input type="textarea" placeholder="请输入中文描述" v-model="editForm.zh.desc" auto-complete="off"></el-input>
 				</el-form-item>
 				<el-form-item label="英文产品描述">
-					<el-input placeholder="请输入英文标题" v-model="editForm.en.desc" auto-complete="off"></el-input>
+					<el-input type="textarea" placeholder="请输入英文描述" v-model="editForm.en.desc" auto-complete="off"></el-input>
 				</el-form-item>
 				<el-form-item label="产品图片">
 					<ul>
@@ -87,10 +87,10 @@
 					<el-input placeholder="请输入英文名称" v-model="addForm.en.title" auto-complete="off"></el-input>
 				</el-form-item>
 				<el-form-item label="中文产品描述">
-					<el-input placeholder="请输入中文描述" v-model="addForm.zh.desc" auto-complete="off"></el-input>
+					<el-input type="textarea" placeholder="请输入中文描述" v-model="addForm.zh.desc" auto-complete="off"></el-input>
 				</el-form-item>
 				<el-form-item label="英文产品描述">
-					<el-input placeholder="请输入英文描述" v-model="addForm.en.desc" auto-complete="off"></el-input>
+					<el-input type="textarea" placeholder="请输入英文描述" v-model="addForm.en.desc" auto-complete="off"></el-input>
 				</el-form-item>
 				<el-form-item label="产品图片">
 					<ul>

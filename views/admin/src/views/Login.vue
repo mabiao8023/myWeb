@@ -53,7 +53,7 @@
             requestLogin(loginParams).then( res => {
               this.logining = false;
               sessionStorage.setItem('user',JSON.stringify(loginParams));
-              this.$router.push({ path: '/' });
+              this.$router.push({ path: '/bannerList' });
             }).catch(e => {
                 this.logining = false;
                 this.$message({

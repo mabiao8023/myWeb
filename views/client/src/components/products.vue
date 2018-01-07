@@ -23,9 +23,9 @@
             @click.stop="gotoProductPage(val.id)"
             >
                 <img :src="val.img_url[0]">
-                <p>{{ val[$i18n.locale].title }} {{ product.curIndex }}</p>
+                <p>{{ val[$i18n.locale].title }}</p>
                 <div class="mask-box"> 
-                      查看产品详情
+                      {{$t('viewDetail')}}
                 </div>
             </li>
         </ul>
@@ -130,7 +130,7 @@ a {
 		.content-box{
 			width:200px;
 			height:80px;
-			border:1px solid #fff;
+			//border:1px solid #fff;
 			position:absolute;
 			top:50%;
 			left:50%;

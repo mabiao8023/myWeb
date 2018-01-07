@@ -47,6 +47,8 @@ let ajaxResHandle =  ( data,resolve,reject ) => {
 
 // 登录
 export const requestLogin = params => { return myAjax.post(`${base}/user/login`, params) };
+// 修改密码
+export const modify = params => { return myAjax.post(`${base}/user/modify`, params) }
 
 // 上传图片
 export const uploadFile = params => {return myAjax.post(`${base}/uploadFile`, params)};
