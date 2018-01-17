@@ -30,6 +30,7 @@
 <script>
 import Header from './common/header';
 import Footer from './common/footer';
+import { Loading } from 'element-ui';
 export default {
 
   name: 'HelloWorld',
@@ -46,6 +47,7 @@ export default {
   methods:{
     // 获得一个产品的详情
     getProductDetail(){
+      let loading = Loading.service({ fullscreen: true });
       console.log(this.$route.params);
       this.id = this.$route.params.productId;
       console.log(this.id);
@@ -55,6 +57,9 @@ export default {
             }
         }).then( res => {
           this.product = res.data.data;
+           this.$nextTick(() => { // 以服务的方式调用的 Loading 需要异步关闭
+            loading.close();
+          });
         } )
     },
   },

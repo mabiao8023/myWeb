@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <router-view/>
+      <router-view/>
   </div>
 </template>
 
@@ -24,7 +24,7 @@ export default {
   text-align: center;
   color: #2c3e50;
   /*margin-top: 60px;*/
-  /*background: url(./assets/bg.jpg) repeat-y;*/
+  background: url(./assets/bg.jpg) center center 100% 100%;
 }
 img{
   width:100%;
@@ -37,4 +37,12 @@ img{
   height:0;
   clear:both;
 }
+// 简单的过渡动画
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .1s
+}
+.fade-enter, .fade-leave-active {
+  opacity: 0
+}
+
 </style>

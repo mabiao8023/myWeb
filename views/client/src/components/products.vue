@@ -38,6 +38,7 @@
 <script>
 import Header from './common/header';
 import Footer from './common/footer';
+import { Loading } from 'element-ui';
 export default {
 
   name: 'HelloWorld',
@@ -65,6 +66,7 @@ export default {
     },
     // 获取banner图列表
     getProductList(){
+      let loading = Loading.service({ fullscreen: true });
       console.log(this.$route.params.id);
       this.$http.get('/api/product',{
         params:{
@@ -74,6 +76,9 @@ export default {
           this.product = res.data.data;
           this.$set(this.product,'curIndex',-1);
           console.log(this.product);
+          this.$nextTick(() => { // 以服务的方式调用的 Loading 需要异步关闭
+            loading.close();
+          });
         } )
     },
   },

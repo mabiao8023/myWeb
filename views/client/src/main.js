@@ -11,8 +11,8 @@ import VueI18n from 'vue-i18n'
 import { 
 	Switch,
 	Carousel,
-  	CarouselItem,
-    Dropdown,
+  CarouselItem,
+  Dropdown,
   DropdownMenu,
   DropdownItem,
   Breadcrumb,
