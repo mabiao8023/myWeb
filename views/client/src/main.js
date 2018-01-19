@@ -4,6 +4,8 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import axios from 'axios'
+import VuePreview from 'vue-preview'
+
 // 初始化
 import 'normalize.css'
 // 国际化
@@ -31,7 +33,7 @@ Vue.use(DropdownItem)
 // Vue.use(Breadcrumb)
 // Vue.use(BreadcrumbItem)
 Vue.use(VueI18n)
-
+Vue.use(VuePreview)
 
 const i18n = new VueI18n({
     locale: 'zh',  // 语言标识

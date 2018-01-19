@@ -32,6 +32,10 @@ module.exports = {
   module: {
     rules: [
       {
+          test: /vue-preview.src.*?js$/,
+          loader: 'babel'
+      },
+      {
         test: /\.vue$/,
         loader: 'vue-loader',
         options: vueLoaderConfig
