@@ -21,6 +21,7 @@
         <ul class="product-list">
             <li 
             v-for="(val,vindex) in item.list"
+            v-if="vindex <= 7"
             @mouseenter="productMouserEnter(index,vindex)" 
             @mouseleave="productMouserLeave(index,vindex)" 
             :class="{active:item.curIndex == vindex}" 

@@ -2,11 +2,9 @@
   <footer class="footer">
 	  <div class="footer-container">
 	  	  <ul class='footer-list'>
-	      	 <li>联系电话：132423543543</li>
-	      	 <li>联系地址：ad伽伽大家观看进度付款给快递费</li>
-	      	 <li>公司名称：广州山东发货地菲复合丝合肥</li>
-	      	 <li>公司名称：广州山东发货地菲复合丝合肥</li>
-	      	 <li>Copyright © 2018 **************有限公司</li>
+	  	   	 <!-- <li v-for="(item,index) in $t('company.contact')">{{item}}</li> -->
+	      	 <li v-for="(item,index) in $t('company.address')">{{item}}</li>
+	      	 <li>Copyright © 2018 {{$t('company.name')}}</li>
 	      </ul>
 	  </div>
   </footer>

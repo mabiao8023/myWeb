@@ -12,17 +12,22 @@
     <el-carousel class="el-carousel" indicator-position="outside" :autoplay='true' height="400px"
  :interval="5000">
     <el-carousel-item v-for='(item,index) in product.img_url'  class="el-carousel-item" :key="item">
-        <img class='el-carousel-item-img' :src="item">
+        <img class='el-carousel-item-img' preview="0" :src="item">
     </el-carousel-item>
     </el-carousel>
     <div class="content ">
-        <h3 class="title">{{product[$i18n.locale].title}}</h3>
+        <h3 class="title">{{product[$i18n.locale].title}} </h3>
         <p class="desc">
           {{product[$i18n.locale].desc}}
         </p>
+        <p class="desc desc2">
+          ({{$t('zoomTip')}})
+        </p>
+        <div class="contact-us" @click="gotoCompany">
+            {{$t('contactBtn')}}
+        </div>
     </div>
   </section>
- 
     <Footer></Footer>
   </div>
 </template>
@@ -62,6 +67,11 @@ export default {
           });
         } )
     },
+    gotoCompany(){
+      this.$router.push({
+        path:'/about'
+      })
+    }
   },
   mounted(){
     this.getProductDetail();
@@ -118,5 +128,21 @@ a {
     color: #858585;
     line-height: 2em;
   }
+  .desc2{
+    color:#333;
+  }
 }
+.contact-us{
+  border-radius:5px;
+  background:rgba(0,0,0,.7);
+  color:#fff;
+  padding:10px 20px;
+  margin-top:20px;
+  display:inline-block;
+  cursor:pointer;
+  &:hover{
+    background:rgba(0,0,0,0.9);
+  }
+}
+
 </style>
