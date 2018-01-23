@@ -11,11 +11,11 @@ module.exports = {
 	company:{
 		name:'HONG KONG HONTAC INTERNATIONAL CO.LTD',
 		intro:[
-		`香港泓泰国际有限公司成立于2000年，总部坐落在香港，另一个分点在广州。泓泰是一家专业从事高档家具的大型贸易公司，产品主要包括实木餐台椅、茶几、餐柜、酒柜、电视柜，具备完整的客厅和餐厅系列。`,
+		`Hong Kong Hontac international limited was established in 2000. Its headquarter is located in Hong Kong and the filial is in GuangZhou. Hotac is a large trading company specializing in high-end furniture and building material. Our products mainly include wooden dining table and chair, tea table, dining cabinet, wine cabinet and TV cabinet with living room and restaurant series. `,
 
-		`除此，泓泰也是一家集研发、生产、销售于一体的综合性家具企业。其大型现代化标准厂房座落于佛山，厂内引进了德国先进的生产流水线设备，并跟国内上百家优秀家具厂商和上市企业有紧密合作关系。`,
+		`In addition, Hontac is a comprehensive furniture company that integrates r&d, production and distribution. Its large-scale factory is located in Foshan, which has imported Germany assembly line. It should be highlighted that we have cooperation with top 100 domestic best furniture manufacturers and listed enterprises.`,
 
-		`经过18年的发展，泓泰以优质的口碑成为中国知名品牌，国外出口远销至东南亚、美国、英国、巴西等国家和地区。泓泰的承诺是：无论在世界的哪个角落，消费者都能用到最有品位的家具。`
+		`After 18 years of development, Hontac has become a well-known brand in China with a good reputation, and exported to southeast Asia, the United States, Britain, Brazil and other countries and regions. It doesn’t matter where you are, we will offer you the best service we have.`
 		],
 		address:[
 			'HK Office: Flat/Rm 16C,Southgate Commercial Center,29 Gganville Road,Tst,Kowloon',

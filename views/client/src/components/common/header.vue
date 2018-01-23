@@ -1,7 +1,7 @@
 <template>
   <header class="header" :style="{background: color}">
       <div class="container clear">
-          <div class="logo">
+          <div class="logo" @click.stop="gotoIndexPage">
               <img src="../../assets/logo.png">
           </div>
           <div class="nav">  
@@ -78,7 +78,7 @@ a {
 /*  top:0;
   left:0;
   right:0;*/
-  height:88px;
+  /*height:88px;*/
   z-index:1000;
 }
 .container{
@@ -86,13 +86,13 @@ a {
   max-width: 1240px;
   margin:0 auto;
   padding:0 15px;
-  height:88px;
+  height:100px;
 }
 .logo{
   float:left;
   margin-top:10px;
-  width:140px;
-  height:66px;
+  width:80px;
+  /*height:66px;*/
 }
 .logo img{
   height:100%;

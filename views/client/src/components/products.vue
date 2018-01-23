@@ -124,7 +124,7 @@ a {
   float:left;
 }
 .banner{
-	margin-top:-88px;
+	margin-top:-100px;
 	position:relative;
 	height:300px;
 	overflow:hidden;

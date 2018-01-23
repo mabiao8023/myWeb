@@ -218,7 +218,7 @@ a {
   z-index:100;
 }
 .el-carousel{
-  margin-top:-88px;
+  margin-top:-100px;
 }
 .el-carousel .content{
   position:absolute;
