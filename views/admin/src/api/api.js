@@ -6,7 +6,7 @@ import Vue from 'vue';
 
 // let base = 'http://120.78.193.207';
 
-let base = 'http://127.0.0.1/api';
+let base = '/api';
 
 let myAjax = {
     get( api,data ){
