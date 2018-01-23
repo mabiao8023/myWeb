@@ -84,7 +84,7 @@
 	export default {
 		data() {
 			return {
-				sysName:'官网后台管理系统',
+				sysName:'泓泰后台管理系统',
 				collapsed:false,
 				sysUserName: '',
 				sysUserAvatar: 'https://raw.githubusercontent.com/taylorchen709/markdown-images/master/vueadmin/user.png',

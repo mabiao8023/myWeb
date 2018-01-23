@@ -194,6 +194,9 @@
 				getBannerList().then( res => {
 				    console.log(res);
 					this.bannerList = res;
+					this.bannerList.forEach( val => {
+						val.img
+					});
 					this.listLoading = false;
 				} )
 			},

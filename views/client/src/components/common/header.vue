@@ -92,6 +92,7 @@ a {
   float:left;
   margin-top:10px;
   width:80px;
+  cursor:pointer;
   /*height:66px;*/
 }
 .logo img{

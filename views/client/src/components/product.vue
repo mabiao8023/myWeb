@@ -9,12 +9,17 @@
   </el-breadcrumb>   -->
   <section class="main clear">
   	<!-- 轮播插件 -->
-    <el-carousel class="el-carousel" indicator-position="outside" :autoplay='true' height="400px"
+    <div class="el-carousel">
+    <div v-for='(item,index) in product.img_url'  class="el-carousel-item" :key="item">
+        <img class='el-carousel-item-img' preview="0" :src="item">
+    </div>
+    </div>
+   <!--  <el-carousel class="el-carousel" indicator-position="outside" :autoplay='true'
  :interval="5000">
     <el-carousel-item v-for='(item,index) in product.img_url'  class="el-carousel-item" :key="item">
         <img class='el-carousel-item-img' preview="0" :src="item">
     </el-carousel-item>
-    </el-carousel>
+    </el-carousel> -->
     <div class="content ">
         <h3 class="title">{{product[$i18n.locale].title}} </h3>
         <p class="desc">
@@ -143,6 +148,9 @@ a {
   &:hover{
     background:rgba(0,0,0,0.9);
   }
+}
+.el-carousel{
+  cursor:pointer;
 }
 
 </style>
