@@ -5,7 +5,7 @@
   <!-- 轮播插件 -->
     <el-carousel class="el-carousel" height='700px' :autoplay='true' :interval="5000">
     <el-carousel-item v-for="(item,index) in banner" class="el-carousel-item" :key="'banner'+index">
-        <img class='el-carousel-item-img' src="../assets/banner1.jpg">
+        <img class='el-carousel-item-img' :src="item.img_url">
         <div class="el-carousel-item-box">
             <div class="content">
                 <h1>{{ item.lang[$i18n.locale].title }}</h1>
